@@ -73,7 +73,7 @@ class contec_align():
 
 
         # Remove the first part of the noisy everbeat recording
-        eb_noise_truncation = 4000
+        eb_noise_truncation = 0
         eb_norm = 0.12
         ebn=self.eba*eb_norm
         ebt=ebn[eb_noise_truncation:]
@@ -122,9 +122,9 @@ class contec_align():
         plt.figure(figsize=(20,6))
         #Plot the dot product to display the max
         plt.plot(self.dots)
-        plt.show()
+        # plt.show()
 
-    def plot_align(self, left_highlight = 0, right_highlight = 0, offset=-1000):
+    def plot_align(self, left_highlight = 0, right_highlight = 0, offset=-10):
         plt.figure(figsize=(20,6))
         #plt.plot(self.cleaneb)
         #plt.plot(self.cleansurf+offset)
@@ -133,6 +133,7 @@ class contec_align():
         plt.show()
         if left_highlight & right_highlight:
             plt.axvspan(left_highlight,right_highlight, color='cyan', alpha = 0.5)
+      
 
     def calc_r2(self):
         # De-bias again
@@ -162,8 +163,8 @@ class contec_align():
         return(q_fract)
 
 a=contec_align(reference, eval)
-a.align_segments(plotrange=6000)
+a.align_segments(plotrange=15000)
 a.plot_align(450,1600)
-a.plot_dots()
+# a.plot_dots()
 a.calc_r2()
 a.assess_quality()
